@@ -95,6 +95,13 @@ const RAGSearchInterface: React.FC<RAGSearchInterfaceProps> = ({
       });
       
       hideLoadingMessage(); // 로딩 메시지 숨기기
+      
+      // 디버깅: 응답 데이터 구조 확인
+      console.log('RAG Search Result:', result);
+      console.log('Response field:', result?.result?.response);
+      console.log('Response type:', typeof result?.result?.response);
+      console.log('Response length:', result?.result?.response?.length);
+      
       setSearchResult(result);
       message.success('검색이 완료되었습니다');
     } catch (error: any) {
@@ -276,7 +283,15 @@ const RAGSearchInterface: React.FC<RAGSearchInterfaceProps> = ({
                 whiteSpace: 'pre-wrap'
               }}
             >
-              {searchResult.result.response || '응답을 생성하지 못했습니다. 다른 질문으로 다시 시도해보세요.'}
+              {(() => {
+                const response = searchResult?.result?.response;
+                console.log('Rendering response:', response);
+                
+                if (!response || response.trim() === '') {
+                  return '응답을 생성하지 못했습니다. 다른 질문으로 다시 시도해보세요.';
+                }
+                return response;
+              })()}
             </Paragraph>
           </Card>
 
@@ -313,28 +328,6 @@ const RAGSearchInterface: React.FC<RAGSearchInterfaceProps> = ({
                           borderRadius: '8px',
                           border: '1px solid #f0f0f0'
                         }}
-                        actions={[
-                          <Button
-                            key="detail"
-                            type="text"
-                            size="small"
-                            icon={<EyeOutlined />}
-                            onClick={() => setSelectedDocument(doc)}
-                          >
-                            상세보기
-                          </Button>,
-                          doc.content.length > 200 && (
-                            <Button
-                              key="expand"
-                              type="text"
-                              size="small"
-                              icon={isExpanded ? <UpOutlined /> : <DownOutlined />}
-                              onClick={() => toggleDocExpansion(index)}
-                            >
-                              {isExpanded ? '접기' : '더보기'}
-                            </Button>
-                          )
-                        ].filter(Boolean)}
                       >
                         <List.Item.Meta
                           avatar={
@@ -350,26 +343,66 @@ const RAGSearchInterface: React.FC<RAGSearchInterfaceProps> = ({
                             </Avatar>
                           }
                           title={
-                            <div style={{ marginBottom: '4px' }}>
-                              <Text
-                                style={{
-                                  fontSize: '13px',
-                                  fontWeight: 500,
-                                  color: '#000000'
-                                }}
-                                ellipsis
-                              >
-                                {doc.filename}
-                              </Text>
-                              <Tag
-                                color="blue"
-                                style={{
-                                  marginLeft: '8px',
-                                  fontSize: '10px'
-                                }}
-                              >
-                                {(doc.score * 100).toFixed(1)}%
-                              </Tag>
+                            <div style={{ 
+                              marginBottom: '4px', 
+                              display: 'flex', 
+                              alignItems: 'center', 
+                              justifyContent: 'space-between',
+                              gap: '8px'
+                            }}>
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <Text
+                                  style={{
+                                    fontSize: '13px',
+                                    fontWeight: 500,
+                                    color: '#000000'
+                                  }}
+                                  ellipsis
+                                >
+                                  {doc.filename}
+                                </Text>
+                                <Tag
+                                  color="blue"
+                                  style={{
+                                    marginLeft: '8px',
+                                    fontSize: '10px'
+                                  }}
+                                >
+                                  {(doc.score * 100).toFixed(1)}%
+                                </Tag>
+                              </div>
+                              <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+                                <Tooltip title="상세보기">
+                                  <Button
+                                    type="text"
+                                    size="small"
+                                    icon={<EyeOutlined />}
+                                    onClick={() => setSelectedDocument(doc)}
+                                    style={{ 
+                                      padding: '2px 4px',
+                                      height: '20px',
+                                      width: '20px',
+                                      minWidth: '20px'
+                                    }}
+                                  />
+                                </Tooltip>
+                                {doc.content.length > 200 && (
+                                  <Tooltip title={isExpanded ? '접기' : '더보기'}>
+                                    <Button
+                                      type="text"
+                                      size="small"
+                                      icon={isExpanded ? <UpOutlined /> : <DownOutlined />}
+                                      onClick={() => toggleDocExpansion(index)}
+                                      style={{ 
+                                        padding: '2px 4px',
+                                        height: '20px',
+                                        width: '20px',
+                                        minWidth: '20px'
+                                      }}
+                                    />
+                                  </Tooltip>
+                                )}
+                              </div>
                             </div>
                           }
                           description={
