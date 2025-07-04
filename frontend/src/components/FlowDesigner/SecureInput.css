@@ -1,0 +1,103 @@
+/* SecureInput Component Styles */
+
+.secure-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.secure-input {
+  transition: all 0.2s ease;
+}
+
+.secure-input.has-value {
+  border-color: #ff7875;
+  background: linear-gradient(135deg, #fff2f0, #fafafa);
+}
+
+.secure-input.env-value {
+  border-color: #73d13d;
+  background: linear-gradient(135deg, #f6ffed, #fafafa);
+}
+
+.secure-input:focus,
+.secure-input.ant-input-focused {
+  border-color: #ff4d4f !important;
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.1) !important;
+}
+
+.secure-input.env-value:focus,
+.secure-input.env-value.ant-input-focused {
+  border-color: #52c41a !important;
+  box-shadow: 0 0 0 3px rgba(82, 196, 26, 0.1) !important;
+}
+
+.visibility-toggle {
+  color: #8c8c8c;
+  padding: 0 4px;
+}
+
+.visibility-toggle:hover {
+  color: #1890ff;
+  background: rgba(24, 144, 255, 0.1);
+}
+
+.env-indicator {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #52c41a;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.env-indicator::before {
+  content: '🛡️';
+  font-size: 10px;
+}
+
+.security-notice {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #ff7875;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.security-notice::before {
+  content: '🔒';
+  font-size: 10px;
+}
+
+/* 복사 방지 스타일 */
+.secure-input[style*="user-select: none"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 드래그 방지 */
+.secure-input {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* 보안 입력 필드 애니메이션 */
+@keyframes securityPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 77, 79, 0.05);
+  }
+}
+
+.secure-input.has-value:focus {
+  animation: securityPulse 2s infinite;
+}

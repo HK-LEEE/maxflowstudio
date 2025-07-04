@@ -1,0 +1,180 @@
+/* FlowDesigner Custom Styles */
+
+/* Prevent scrollbars on canvas */
+.react-flow {
+  overflow: hidden !important;
+}
+
+.react-flow__renderer {
+  overflow: visible !important;
+}
+
+.react-flow__viewport {
+  overflow: visible !important;
+}
+
+/* Highlighted edges */
+.highlighted-edge {
+  stroke: #3b82f6 !important;
+  stroke-width: 3px !important;
+}
+
+/* Custom node dragging cursor */
+.react-flow__node-custom {
+  cursor: grab;
+}
+
+.react-flow__node-custom:active {
+  cursor: grabbing;
+}
+
+/* Ensure nodes can be dragged */
+.react-flow__node {
+  pointer-events: auto;
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* Node Menu Dropdown Styles */
+.node-menu-dropdown {
+  z-index: 9999 !important;
+  position: relative;
+}
+
+.node-menu-dropdown .ant-dropdown {
+  z-index: 9999 !important;
+  position: absolute;
+  width: fit-content !important;
+  max-width: 120px !important;
+}
+
+.node-menu-dropdown .ant-dropdown-menu {
+  z-index: 9999 !important;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e8e8e8;
+  padding: 6px;
+  min-width: auto !important;
+  width: fit-content !important;
+  max-width: 120px !important;
+  background: white;
+  backdrop-filter: blur(8px);
+}
+
+.node-menu-dropdown .ant-dropdown-menu-item {
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin: 1px 0;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: auto;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 13px;
+}
+
+.node-menu-dropdown .ant-dropdown-menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+.node-menu-dropdown .ant-dropdown-menu-item-danger:hover {
+  background-color: #fff2f0;
+  color: #ff4d4f;
+}
+
+.node-menu-dropdown .ant-dropdown-menu-item-icon {
+  margin-right: 6px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  width: 13px;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Node Container Styles - Keep node styling intact */
+.node-container {
+  /* Keep overflow: hidden for visual integrity */
+}
+
+/* Ensure React Flow containers don't clip dropdowns */
+.react-flow__viewport {
+  overflow: visible !important;
+}
+
+.react-flow__renderer {
+  overflow: visible !important;
+}
+
+/* Ensure the React Flow wrapper allows overflow for dropdowns */
+.react-flow {
+  overflow: visible !important;
+}
+
+/* Node Menu Button Styles */
+.node-menu-button {
+  opacity: 0.7;
+  transform: scale(1);
+}
+
+.node-menu-button:hover {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transform: scale(1.05);
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.node-menu-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.node-menu-button .anticon {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #525252;
+  transition: color 0.2s ease;
+}
+
+.node-menu-button:hover .anticon {
+  color: #262626;
+}
+
+/* Show menu button only on node hover */
+.react-flow__node:not(:hover) .node-menu-button {
+  opacity: 0.4;
+}
+
+.react-flow__node:hover .node-menu-button {
+  opacity: 0.9;
+}
+
+/* Floating Delete Button Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Panel Toggle Button Pulse Animation */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: -4px 0 12px rgba(59, 130, 246, 0.25);
+  }
+  50% {
+    box-shadow: -4px 0 20px rgba(59, 130, 246, 0.4), -2px 0 30px rgba(59, 130, 246, 0.2);
+  }
+  100% {
+    box-shadow: -4px 0 12px rgba(59, 130, 246, 0.25);
+  }
+}
